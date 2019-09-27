@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import helpdesk.api.enums.ProfileEnum;
 
-@SuppressWarnings("deprecation")
 @Document
 public class User {
 

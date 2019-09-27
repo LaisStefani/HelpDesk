@@ -1,7 +1,5 @@
 package helpdesk.api.service;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +12,7 @@ public interface UserService {
 	
 	User createOrUpdate(User user);
 	
-	Optional<User> findById(String id);
+	User findById(String id);
 	
 	void delete(String id);
 	

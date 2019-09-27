@@ -29,6 +29,7 @@ import helpdesk.api.service.UserService;
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationRestController {
+	
 
     @Autowired(required=true)
     private AuthenticationManager authenticationManager;
@@ -73,6 +74,6 @@ public class AuthenticationRestController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-
+    
 }
 

@@ -27,6 +27,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String authToken = request.getHeader("Authorization");
 		String username = jwtTokenUtil.getUsernameFromToken(authToken);
+		
 		//pega o token o usuario e verifica se esta autenticado, depois pesquisa verifica se existe e valida
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
