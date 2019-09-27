@@ -4,6 +4,6 @@ public enum PriorityEnum {
 	
 	Hight,
 	Normal,
-	Low;
+	Low
 
 }

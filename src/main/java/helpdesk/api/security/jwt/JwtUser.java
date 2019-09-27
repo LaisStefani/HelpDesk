@@ -8,20 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JwtUser implements UserDetails {
-	private static final long serialVersionUID = - 1L;
+
+	private static final long serialVersionUID = 1L;
 
 	private final String id;
 	private final String username;
 	private final String password;
 	private final Collection<? extends GrantedAuthority> authorities;
-	
-	public JwtUser(String id,String username, String password, Collection<? extends GrantedAuthority> authorities ) {
+
+	public JwtUser(String id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
-	} 
-	
+	}
+
 	@JsonIgnore
 	public String getId() {
 		return id;
@@ -65,5 +66,4 @@ public class JwtUser implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
 }

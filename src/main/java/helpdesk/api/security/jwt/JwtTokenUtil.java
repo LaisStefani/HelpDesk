@@ -7,38 +7,42 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import helpdesk.api.security.jwt.JwtUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class JwtTokenUtil implements Serializable{
-	private static final long serialVersionUID = 1L;
+@Component
+public class JwtTokenUtil implements Serializable {
 
-	static final String CLAIM_KEY_USERNAME = "sub";
-	static final String CLAIM_KEY_CREATED = "created";
-	static final String CLAIM_KEY_EXPIRED = "exp";
-	
-	@Value("${jwt.secret}")
-	private String secret;
-	
-	@Value("${jwt.secret}")
-	private Long expiration;
+    private static final long serialVersionUID = -3301605591108950415L;
+    static final String CLAIM_KEY_USERNAME = "sub";
+    static final String CLAIM_KEY_CREATED = "created";
+    static final String CLAIM_KEY_EXPIRED = "exp";
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private Long expiration;
 	
 	//Esse método vai obter o email que esta dentro do token
-	public String getUsernameFromToken(String token) {
-	        String username;
-	        try {
-	            final Claims claims = getClaimsFromToken(token);
-	            username = claims.getSubject();
-	        } catch (Exception e) {
-	            username = null;
-	        }
-	        return username;
-	}
+    public String getUsernameFromToken(String token) {
+        String username;
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            username = claims.getSubject();
+        } catch (Exception e) {
+            username = null;
+        }
+        return username;
+    }
 	
 	//Esse método vai retornar a data de extração do token 
-	public Date getExpirationDateFromToken(String token) {
+    public Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -50,18 +54,18 @@ public class JwtTokenUtil implements Serializable{
     }
 	
 	//Realiza o passe do token para poder onter as informações dele
-	private Claims getClaimsFromToken(String token) {
-	        Claims claims;
-	        try {
-	            claims = Jwts.parser()
-	                    .setSigningKey(secret)
-	                    .parseClaimsJws(token)
-	                    .getBody();
-	        } catch (Exception e) {
-	            claims = null;
-	        }
-	        return claims;
-	    }
+    private Claims getClaimsFromToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            claims = null;
+        }
+        return claims;
+    }
 	
 	
 	//Vai verificar se o token esta expirado
@@ -71,16 +75,17 @@ public class JwtTokenUtil implements Serializable{
     }
     
     //metodo responsavel por gerar o token
-    public String generateToken(UserDetails userDetails) { 
-    	Map<String, Object> claims = new HashMap<>();
-    	
-    	claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 
         final Date createdDate = new Date();
         claims.put(CLAIM_KEY_CREATED, createdDate);
 
-        return doGenerateToken(claims);  	
+        return doGenerateToken(claims);
     }
+    
     //metodo auxiliar para geração de token
     private String doGenerateToken(Map<String, Object> claims) {
         final Date createdDate = (Date) claims.get(CLAIM_KEY_CREATED);

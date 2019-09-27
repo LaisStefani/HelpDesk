@@ -1,40 +1,42 @@
- package helpdesk.api.service.impl;
+package helpdesk.api.service.impl;
 
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.data.domain.Page;
- import org.springframework.data.domain.PageRequest;
- import org.springframework.data.domain.Pageable;
- import org.springframework.stereotype.Component;
+import java.util.Optional;
 
- import helpdesk.api.repository.UserRepository;
- import helpdesk.api.entity.User;
- import helpdesk.api.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
- @Component
- public class UserServiceImpl implements UserService {
+import helpdesk.api.repository.UserRepository;
+import helpdesk.api.entity.User;
+import helpdesk.api.service.UserService;
 
- 	@Autowired
- 	private UserRepository userRepository;
+@Component
+public class UserServiceImpl implements UserService {
 
- 	public User findByEmail(String email) {
- 		return this.userRepository.findByEmail(email);
- 	}
+	@Autowired
+	private UserRepository userRepository;
 
- 	public User createOrUpdate(User user) {
- 		return this.userRepository.save(user);
- 	}
+	public User findByEmail(String email) {
+		return this.userRepository.findByEmail(email);
+	}
 
- 	public User findById(String id) {
- 		return this.userRepository.findById(id).get();
- 	}
+	public User createOrUpdate(User user) {
+		return this.userRepository.save(user);
+	}
 
- 	public void delete(String id) {
- 		this.userRepository.deleteById(id);
- 	}
+	public Optional<User> findById(String id) {
+		return this.userRepository.findById(id);
+	}
 
- 	public Page<User> findAll(int page, int count) {
- 		Pageable pages = PageRequest.of(page, count);
- 		return this.userRepository.findAll(pages);
- 	}
- }
+	public void delete(String id) {
+		this.userRepository.deleteById(id);
+	}
 
+	public Page<User> findAll(int page, int count) {
+		@SuppressWarnings("deprecation")
+		Pageable pages = new PageRequest(page, count);
+		return this.userRepository.findAll(pages);
+	}
+}
