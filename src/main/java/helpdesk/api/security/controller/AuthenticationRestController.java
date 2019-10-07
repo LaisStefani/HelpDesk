@@ -25,7 +25,7 @@ import helpdesk.api.security.jwt.JwtTokenUtil;
 import helpdesk.api.security.model.CurrentUser;
 import helpdesk.api.service.UserService;
 
-//permitindo acesso de qualquer porta 
+//Permitindo acesso de qualquer porta, criando o token  
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationRestController {
@@ -60,6 +60,7 @@ public class AuthenticationRestController {
         user.setPassword(null);
         return ResponseEntity.ok(new CurrentUser(token, user));
     }
+    
     //Caso seja necessario um refresh 
     @PostMapping(value="/api/refresh")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {

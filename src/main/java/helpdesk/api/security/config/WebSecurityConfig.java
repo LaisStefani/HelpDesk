@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import helpdesk.api.security.jwt.JwtAuthenticationEntryPoint;
 import helpdesk.api.security.jwt.JwtAuthenticationTokenFilter;
 
+//Todas as requisições serão validadas e dependeram de um token valido para acessar o sistema
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -64,8 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         httpSecurity.headers().cacheControl();
     }
-	
-	
 
-    //Todas as requisições serão validadas e dependeram de um token valido para acessar o sistema
 }

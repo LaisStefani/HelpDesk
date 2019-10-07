@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import helpdesk.api.enums.StatusEnum;
+//Entidades, get e set 
 
 @Document
 public class ChangeStatus {

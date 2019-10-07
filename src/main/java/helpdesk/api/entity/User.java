@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import helpdesk.api.enums.ProfileEnum;
+//Entidades, get e set 
 
 @Document
 public class User {

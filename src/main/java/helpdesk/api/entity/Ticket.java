@@ -12,7 +12,7 @@ import helpdesk.api.entity.ChangeStatus;
 import helpdesk.api.entity.User;
 import helpdesk.api.enums.PriorityEnum;
 import helpdesk.api.enums.StatusEnum;
-
+//Entidades, get e set 
 
 @Document
 public class Ticket {
