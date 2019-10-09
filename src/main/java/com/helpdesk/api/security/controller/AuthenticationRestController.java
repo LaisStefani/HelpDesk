@@ -21,23 +21,25 @@ import com.helpdesk.api.security.jwt.JwtAuthenticationRequest;
 import com.helpdesk.api.security.jwt.JwtTokenUtil;
 import com.helpdesk.api.security.model.CurrentUser;
 import com.helpdesk.api.service.UserService;
-
+//Permitindo acesso de qualquer porta, criando o token
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationRestController {
 
-    @Autowired
+
+    @Autowired(required=true)
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Autowired(required=true)
     private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
+    @Autowired(required=true)
     private UserDetailsService userDetailsService;
-    
-    @Autowired
+
+    @Autowired(required=true)
     private UserService userService;
 
+    //metodo que cria o token
     @PostMapping(value="/api/auth")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
 
@@ -55,12 +57,13 @@ public class AuthenticationRestController {
         return ResponseEntity.ok(new CurrentUser(token, user));
     }
 
+    //Caso seja necessario um refresh
     @PostMapping(value="/api/refresh")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String username = jwtTokenUtil.getUsernameFromToken(token);
         final User user = userService.findByEmail(username);
-        
+
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             return ResponseEntity.ok(new CurrentUser(refreshedToken, user));
